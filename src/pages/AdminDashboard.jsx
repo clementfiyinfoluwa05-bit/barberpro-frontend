@@ -40,10 +40,10 @@ export default function AdminDashboard() {
   };
 
   const total = appointments.length;
-  const pending = appointments.filter(a => a.status === "pending").length;
-  const confirmed = appointments.filter(a => a.status === "confirmed").length;
-  const completed = appointments.filter(a => a.status === "completed").length;
-  const cancelled = appointments.filter(a => a.status === "cancelled").length;
+  const pending = appointments.filter((a) => a.status === "pending").length;
+  const confirmed = appointments.filter((a) => a.status === "confirmed").length;
+  const completed = appointments.filter((a) => a.status === "completed").length;
+  const cancelled = appointments.filter((a) => a.status === "cancelled").length;
 
   const statusColor = (status) => {
     if (status === "confirmed") return "text-green-400";
@@ -55,17 +55,25 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-black text-white">
       <nav className="flex justify-between items-center px-8 py-5 border-b border-yellow-400">
-        <h1 className="text-yellow-400 text-xl font-bold tracking-widest">TECH BARBER QUEEN — ADMIN</h1>
+        <h1 className="text-yellow-400 text-xl font-bold tracking-widest">
+          TECH BARBER QUEEN - ADMIN
+        </h1>
         <div className="flex gap-4 items-center">
           <span className="text-gray-400 text-sm">Admin: {user?.fullName}</span>
-          <button onClick={handleLogout} className="border border-yellow-400 text-yellow-400 px-4 py-2 rounded text-sm hover:bg-yellow-400 hover:text-black transition">Logout</button>
+          <button
+            onClick={handleLogout}
+            className="border border-yellow-400 text-yellow-400 px-4 py-2 rounded text-sm hover:bg-yellow-400 hover:text-black transition"
+          >
+            Logout
+          </button>
         </div>
       </nav>
 
       <div className="max-w-6xl mx-auto px-8 py-10">
-        <h2 className="text-3xl font-bold mb-8">Admin <span className="text-yellow-400">Dashboard</span></h2>
+        <h2 className="text-3xl font-bold mb-8">
+          Admin <span className="text-yellow-400">Dashboard</span>
+        </h2>
 
-        {/* STATS */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
           {[
             { label: "Total", value: total, color: "border-yellow-400 text-yellow-400" },
@@ -74,14 +82,16 @@ export default function AdminDashboard() {
             { label: "Completed", value: completed, color: "border-blue-400 text-blue-400" },
             { label: "Cancelled", value: cancelled, color: "border-red-400 text-red-400" },
           ].map((stat) => (
-            <div key={stat.label} className={`bg-zinc-900 border ${stat.color} rounded-lg p-5 text-center`}>
+            <div
+              key={stat.label}
+              className={`bg-zinc-900 border ${stat.color} rounded-lg p-5 text-center`}
+            >
               <p className={`text-3xl font-bold ${stat.color.split(" ")[1]}`}>{stat.value}</p>
               <p className="text-gray-400 text-sm mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        {/* APPOINTMENTS TABLE */}
         <h3 className="text-xl font-bold text-yellow-400 mb-4">All Appointments</h3>
 
         {loading ? (
@@ -103,16 +113,25 @@ export default function AdminDashboard() {
               </thead>
               <tbody>
                 {appointments.map((apt) => (
-                  <tr key={apt._id} className="border-b border-zinc-800 hover:bg-zinc-900 transition">
+                  <tr
+                    key={apt._id}
+                    className="border-b border-zinc-800 hover:bg-zinc-900 transition"
+                  >
                     <td className="py-4 pr-4">
-                      <p className="font-bold text-white">{apt.customerId?.fullName || "Customer"}</p>
+                      <p className="font-bold text-white">
+                        {apt.customerId?.fullName || "Customer"}
+                      </p>
                       <p className="text-gray-500 text-xs">{apt.customerId?.phone}</p>
                     </td>
-                    <td className="py-4 pr-4 text-gray-300">{apt.serviceId?.serviceName || "Service"}</td>
+                    <td className="py-4 pr-4 text-gray-300">
+                      {apt.serviceId?.serviceName || "Service"}
+                    </td>
                     <td className="py-4 pr-4 text-gray-300">{apt.appointmentDate}</td>
                     <td className="py-4 pr-4 text-gray-300">{apt.appointmentTime}</td>
                     <td className="py-4 pr-4">
-                      <span className={`font-bold capitalize ${statusColor(apt.status)}`}>{apt.status}</span>
+                      <span className={`font-bold capitalize ${statusColor(apt.status)}`}>
+                        {apt.status}
+                      </span>
                     </td>
                     <td className="py-4">
                       <div className="flex gap-2 flex-wrap">
