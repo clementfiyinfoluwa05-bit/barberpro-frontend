@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API from "../services/api";
 
 export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    API.get("/services")
+      .then(({ data }) => setServices(data.slice(0, 4)))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div className="bg-black text-white min-h-screen">
@@ -11,24 +19,21 @@ export default function Landing() {
       <nav className="flex justify-between items-center px-6 py-5 border-b border-yellow-400 relative">
         <h1 className="text-yellow-400 text-xl font-bold tracking-widest">TECH BARBER QUEEN</h1>
 
-        {/* Desktop menu */}
         <div className="hidden sm:flex gap-6 text-sm font-medium">
           <a href="#services" className="hover:text-yellow-400 transition">Services</a>
           <Link to="/services" className="hover:text-yellow-400 transition">Book Now</Link>
           <Link to="/login" className="hover:text-yellow-400 transition">Login</Link>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className="sm:hidden text-yellow-400 text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? "?" : "?"}
+          {menuOpen ? "✕" : "☰"}
         </button>
 
-        {/* Mobile dropdown */}
         {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-black border-b border-yellow-400 flex flex-col items-center gap-4 py-6 z-50 sm:hidden">
+          <div className="absolute top-full left-0 w-full bg-black border-b border-yellow-400 flex flex-col items-center gap-4 py-6 z-50 sm:hidden">
             <a href="#services" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Services</a>
             <Link to="/services" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Book Now</Link>
             <Link to="/login" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Login</Link>
@@ -54,15 +59,31 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* SERVICES OVERVIEW */}
+      {/* SERVICES OVERVIEW - REAL PHOTOS */}
       <section id="services" className="py-20 px-6 bg-zinc-900">
         <h3 className="text-center text-3xl font-bold text-yellow-400 mb-12">Our Services</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          {["Low Cut", "Hair Dye", "Home Service", "Kids Cut"].map((service) => (
-            <div key={service} className="bg-black border border-yellow-400 rounded-lg p-5 text-center hover:bg-yellow-400 hover:text-black transition group">
-              <div className="text-3xl mb-2">??</div>
-              <h4 className="font-bold text-sm md:text-lg group-hover:text-black">{service}</h4>
-            </div>
+          {services.map((service) => (
+            <Link
+              to="/services"
+              key={service._id}
+              className="bg-black border border-yellow-400 rounded-lg overflow-hidden hover:border-yellow-300 transition group"
+            >
+              <div
+                style={{
+                  backgroundImage: `url(${service.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  height: "120px",
+                  backgroundColor: "#27272a"
+                }}
+              />
+              <div className="p-3 text-center">
+                <h4 className="font-bold text-sm md:text-base group-hover:text-yellow-400 transition">
+                  {service.serviceName}
+                </h4>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -72,9 +93,9 @@ export default function Landing() {
         <h3 className="text-center text-3xl font-bold text-yellow-400 mb-12">Why Choose Us</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {[
-            { icon: "?", title: "Fast Booking", desc: "Book your appointment in seconds, no waiting on calls." },
-            { icon: "??", title: "Expert Barbers", desc: "Skilled professionals who know exactly what you need." },
-            { icon: "??", title: "Easy Management", desc: "Track and manage all your appointments in one place." },
+            { icon: "⚡", title: "Fast Booking", desc: "Book your appointment in seconds, no waiting on calls." },
+            { icon: "👑", title: "Expert Barbers", desc: "Skilled professionals who know exactly what you need." },
+            { icon: "📱", title: "Easy Management", desc: "Track and manage all your appointments in one place." },
           ].map((item) => (
             <div key={item.title} className="text-center p-6 border border-zinc-700 rounded-lg hover:border-yellow-400 transition">
               <div className="text-4xl mb-4">{item.icon}</div>
@@ -95,9 +116,9 @@ export default function Landing() {
             { name: "Chisom N.", text: "My kids love coming here. The home service option is a lifesaver." },
           ].map((t) => (
             <div key={t.name} className="bg-black border border-zinc-700 rounded-lg p-6 hover:border-yellow-400 transition">
-              <p className="text-yellow-400 text-lg mb-1">?????</p>
+              <p className="text-yellow-400 text-lg mb-1">★★★★★</p>
               <p className="text-gray-300 text-sm mb-4 italic">"{t.text}"</p>
-              <p className="text-white font-bold text-sm">� {t.name}</p>
+              <p className="text-white font-bold text-sm">— {t.name}</p>
             </div>
           ))}
         </div>
@@ -114,13 +135,13 @@ export default function Landing() {
 
       {/* BRAND SECTION */}
       <section className="py-10 px-6 bg-yellow-400 text-black text-center">
-        <p className="text-base md:text-lg font-bold">Built by Tech Barber Queen � where technology meets grooming.</p>
+        <p className="text-base md:text-lg font-bold">Built by Tech Barber Queen — where technology meets grooming.</p>
       </section>
 
       {/* FOOTER */}
       <footer className="py-8 px-6 border-t border-zinc-800 text-center text-gray-500 text-sm">
         <p className="text-yellow-400 font-bold text-lg mb-2">TECH BARBER QUEEN</p>
-        <p>� 2026 BarberPro. All rights reserved.</p>
+        <p>© 2026 BarberPro. All rights reserved.</p>
       </footer>
 
     </div>
