@@ -19,21 +19,21 @@ export default function Landing() {
       <nav className="flex justify-between items-center px-6 py-5 border-b border-yellow-400 relative">
         <h1 className="text-yellow-400 text-xl font-bold tracking-widest">TECH BARBER QUEEN</h1>
 
-        <div className="hidden sm:flex gap-6 text-sm font-medium">
+        <div className="hidden md:flex gap-6 text-sm font-medium">
           <a href="#services" className="hover:text-yellow-400 transition">Services</a>
           <Link to="/services" className="hover:text-yellow-400 transition">Book Now</Link>
           <Link to="/login" className="hover:text-yellow-400 transition">Login</Link>
         </div>
 
         <button
-          className="sm:hidden text-yellow-400 text-2xl"
+          className="md:hidden text-yellow-400 text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? "✕" : "☰"}
         </button>
 
         {menuOpen && (
-          <div className="absolute top-full left-0 w-full bg-black border-b border-yellow-400 flex flex-col items-center gap-4 py-6 z-50 sm:hidden">
+          <div className="absolute top-full left-0 w-full bg-black border-b border-yellow-400 flex flex-col items-center gap-4 py-6 z-50 md:hidden">
             <a href="#services" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Services</a>
             <Link to="/services" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Book Now</Link>
             <Link to="/login" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Login</Link>
