@@ -1,0 +1,28 @@
+.preloader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.preloader-spinner {
+  width: 56px;
+  height: 56px;
+  border: 6px solid #333;
+  border-top-color: #FBBF24;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.preloader-text {
+  color: #FBBF24;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
