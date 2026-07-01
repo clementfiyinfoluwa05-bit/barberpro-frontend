@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import API from "../services/api";
+import Spinner from "../components/Spinner";
 
 export default function Services() {
   const { user } = useAuth();
@@ -42,9 +43,7 @@ export default function Services() {
         <h2 className="text-3xl font-bold text-center mb-2">Our <span className="text-yellow-400">Services</span></h2>
         <p className="text-gray-400 text-center mb-10">Choose a service and book your appointment today</p>
 
-        {loading ? (
-          <p className="text-center text-gray-400">Loading services...</p>
-        ) : services.length === 0 ? (
+        {loading ? <Spinner /> : services.length === 0 ? (
           <p className="text-center text-gray-400">No services available yet.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
