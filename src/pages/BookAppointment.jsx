@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import API from "../services/api";
 
+const COVERED_AREAS = ["Ogba", "Ikeja", "Agege", "Ijaiye"];
+
 export default function BookAppointment() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -14,6 +16,8 @@ export default function BookAppointment() {
     serviceId: preSelectedService?._id || "",
     appointmentDate: "",
     appointmentTime: "",
+    area: "",
+    address: "",
     notes: "",
   });
   const [loading, setLoading] = useState(false);
@@ -38,14 +42,24 @@ export default function BookAppointment() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const isOutsideCoveredArea = formData.area && !COVERED_AREAS.includes(formData.area);
+
+  const selectedService = services.find(s => s._id === formData.serviceId);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      await API.post("/appointments", formData);
+      const notes = `Area: ${formData.area} | Address: ${formData.address}${formData.notes ? ` | Notes: ${formData.notes}` : ""}${isOutsideCoveredArea ? " | OUTSIDE COVERAGE AREA - transport fee TBC" : ""}`;
+      await API.post("/appointments", {
+        serviceId: formData.serviceId,
+        appointmentDate: formData.appointmentDate,
+        appointmentTime: formData.appointmentTime,
+        notes
+      });
       setSuccess(true);
-      setTimeout(() => navigate("/dashboard"), 2000);
+      setTimeout(() => navigate("/dashboard"), 2500);
     } catch (err) {
       setError(err.response?.data?.message || "Booking failed");
     } finally {
@@ -54,34 +68,41 @@ export default function BookAppointment() {
   };
 
   const timeSlots = [
-    "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
-    "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"
+    "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
+    "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"
   ];
+
+  const formatPrice = (service) => {
+    if (!service) return "";
+    if (service.priceType === "from") return `From NGN ${service.price.toLocaleString()}`;
+    return `NGN ${service.price.toLocaleString()}`;
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <nav className="flex justify-between items-center px-8 py-5 border-b border-yellow-400">
+      <nav className="flex justify-between items-center px-6 py-5 border-b border-yellow-400">
         <h1 className="text-yellow-400 text-xl font-bold tracking-widest">TECH BARBER QUEEN</h1>
         <button onClick={() => navigate("/dashboard")} className="text-gray-400 hover:text-yellow-400 text-sm transition">Back to Dashboard</button>
       </nav>
 
-      <div className="max-w-lg mx-auto px-8 py-12">
-        <h2 className="text-3xl font-bold mb-2">Book <span className="text-yellow-400">Appointment</span></h2>
-        <p className="text-gray-400 mb-8">Fill in the details below to schedule your visit</p>
+      <div className="max-w-lg mx-auto px-6 py-10">
+        <h2 className="text-3xl font-bold mb-1">Book <span className="text-yellow-400">Appointment</span></h2>
+        <p className="text-gray-400 mb-6 text-sm">We come to you — fill in your details below</p>
 
         {success && (
           <div className="bg-green-500 text-white px-4 py-3 rounded mb-6 text-center font-bold">
-            Booking successful! Redirecting to dashboard...
+            Booking submitted! We will confirm your appointment shortly. Redirecting...
           </div>
         )}
 
         {error && (
-          <div className="bg-red-500 text-white px-4 py-3 rounded mb-6 text-center">
+          <div className="bg-red-500 text-white px-4 py-3 rounded mb-6 text-center text-sm">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          {/* SERVICE */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Select Service</label>
             <select
@@ -90,11 +111,19 @@ export default function BookAppointment() {
             >
               <option value="">-- Choose a service --</option>
               {services.map((s) => (
-                <option key={s._id} value={s._id}>{s.serviceName} - NGN {s.price.toLocaleString()}+</option>
+                <option key={s._id} value={s._id}>
+                  {s.serviceName} — {s.priceType === "from" ? "From " : ""}NGN {s.price.toLocaleString()}
+                </option>
               ))}
             </select>
+            {selectedService && selectedService.priceType === "from" && (
+              <p className="text-yellow-400 text-xs mt-1">
+                Starting from NGN {selectedService.price.toLocaleString()}. Final price confirmed before appointment.
+              </p>
+            )}
           </div>
 
+          {/* DATE */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Select Date</label>
             <input
@@ -104,6 +133,7 @@ export default function BookAppointment() {
             />
           </div>
 
+          {/* TIME */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Select Time</label>
             <select
@@ -117,24 +147,79 @@ export default function BookAppointment() {
             </select>
           </div>
 
+          {/* AREA */}
+          <div>
+            <label className="text-sm text-gray-400 mb-1 block">Select Your Area</label>
+            <select
+              name="area" value={formData.area} onChange={handleChange} required
+              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
+            >
+              <option value="">-- Select your area --</option>
+              <option value="Ogba">Ogba</option>
+              <option value="Ikeja">Ikeja</option>
+              <option value="Agege">Agege</option>
+              <option value="Ijaiye">Ijaiye</option>
+              <option value="Other">Other (outside coverage area)</option>
+            </select>
+            {isOutsideCoveredArea && (
+              <div className="mt-2 bg-zinc-900 border border-yellow-400 rounded p-3 text-xs text-yellow-400">
+                Your location is outside our main coverage area. An additional transportation fee may apply. We will contact you to confirm the total cost before accepting your booking.
+              </div>
+            )}
+          </div>
+
+          {/* ADDRESS */}
+          <div>
+            <label className="text-sm text-gray-400 mb-1 block">Full Address</label>
+            <input
+              type="text" name="address" value={formData.address} onChange={handleChange} required
+              placeholder="e.g. 12 Balogun Street, Ogba"
+              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
+            />
+          </div>
+
+          {/* NOTES */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Additional Notes (optional)</label>
             <textarea
               name="notes" value={formData.notes} onChange={handleChange}
-              placeholder="Any special requests or notes..."
+              placeholder="Any special requests or additional information..."
               rows={3}
               className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400 resize-none"
             />
           </div>
 
+          {/* BOOKING SUMMARY */}
+          {selectedService && formData.area && (
+            <div className="bg-zinc-900 border border-zinc-700 rounded-lg p-4 text-sm">
+              <p className="text-yellow-400 font-bold mb-2">Booking Summary</p>
+              <p className="text-white">{selectedService.serviceName}</p>
+              <p className="text-gray-400">{formatPrice(selectedService)}</p>
+              <p className="text-gray-400">{formData.area} {formData.address && `— ${formData.address}`}</p>
+              {isOutsideCoveredArea && (
+                <p className="text-yellow-400 text-xs mt-2">+ Transport fee TBC</p>
+              )}
+            </div>
+          )}
+
           <button
             type="submit" disabled={loading || success}
             className="bg-yellow-400 text-black font-bold py-3 rounded hover:bg-yellow-300 transition disabled:opacity-50"
           >
-            {loading ? "Booking..." : "Confirm Booking"}
+            {loading ? "Submitting..." : "Confirm Booking"}
           </button>
         </form>
       </div>
+
+      {/* WHATSAPP */}
+      
+        href="https://wa.me/2349132490766"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-green-500 text-white px-4 py-3 rounded-full font-bold shadow-lg hover:bg-green-400 transition z-50 flex items-center gap-2"
+      >
+        <span>??</span> WhatsApp
+      </a>
     </div>
   );
 }
