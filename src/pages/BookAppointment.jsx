@@ -43,7 +43,6 @@ export default function BookAppointment() {
   };
 
   const isOutsideCoveredArea = formData.area && !COVERED_AREAS.includes(formData.area);
-
   const selectedService = services.find(s => s._id === formData.serviceId);
 
   const handleSubmit = async (e) => {
@@ -51,7 +50,7 @@ export default function BookAppointment() {
     setError("");
     setLoading(true);
     try {
-      const notes = `Area: ${formData.area} | Address: ${formData.address}${formData.notes ? ` | Notes: ${formData.notes}` : ""}${isOutsideCoveredArea ? " | OUTSIDE COVERAGE AREA - transport fee TBC" : ""}`;
+      const notes = "Area: " + formData.area + " | Address: " + formData.address + (formData.notes ? " | Notes: " + formData.notes : "") + (isOutsideCoveredArea ? " | OUTSIDE COVERAGE AREA - transport fee TBC" : "");
       await API.post("/appointments", {
         serviceId: formData.serviceId,
         appointmentDate: formData.appointmentDate,
@@ -67,15 +66,12 @@ export default function BookAppointment() {
     }
   };
 
-  const timeSlots = [
-    "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
-    "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"
-  ];
+  const timeSlots = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"];
 
   const formatPrice = (service) => {
     if (!service) return "";
-    if (service.priceType === "from") return `From NGN ${service.price.toLocaleString()}`;
-    return `NGN ${service.price.toLocaleString()}`;
+    if (service.priceType === "from") return "From NGN " + service.price.toLocaleString();
+    return "NGN " + service.price.toLocaleString();
   };
 
   return (
@@ -87,7 +83,7 @@ export default function BookAppointment() {
 
       <div className="max-w-lg mx-auto px-6 py-10">
         <h2 className="text-3xl font-bold mb-1">Book <span className="text-yellow-400">Appointment</span></h2>
-        <p className="text-gray-400 mb-6 text-sm">We come to you — fill in your details below</p>
+        <p className="text-gray-400 mb-6 text-sm">We come to you â€” fill in your details below</p>
 
         {success && (
           <div className="bg-green-500 text-white px-4 py-3 rounded mb-6 text-center font-bold">
@@ -102,58 +98,37 @@ export default function BookAppointment() {
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          {/* SERVICE */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Select Service</label>
-            <select
-              name="serviceId" value={formData.serviceId} onChange={handleChange} required
-              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
-            >
+            <select name="serviceId" value={formData.serviceId} onChange={handleChange} required className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400">
               <option value="">-- Choose a service --</option>
               {services.map((s) => (
                 <option key={s._id} value={s._id}>
-                  {s.serviceName} — {s.priceType === "from" ? "From " : ""}NGN {s.price.toLocaleString()}
+                  {s.serviceName} â€” {s.priceType === "from" ? "From " : ""}NGN {s.price.toLocaleString()}
                 </option>
               ))}
             </select>
             {selectedService && selectedService.priceType === "from" && (
-              <p className="text-yellow-400 text-xs mt-1">
-                Starting from NGN {selectedService.price.toLocaleString()}. Final price confirmed before appointment.
-              </p>
+              <p className="text-yellow-400 text-xs mt-1">Starting from NGN {selectedService.price.toLocaleString()}. Final price confirmed before appointment.</p>
             )}
           </div>
 
-          {/* DATE */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Select Date</label>
-            <input
-              type="date" name="appointmentDate" value={formData.appointmentDate} onChange={handleChange} required
-              min={new Date().toISOString().split("T")[0]}
-              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
-            />
+            <input type="date" name="appointmentDate" value={formData.appointmentDate} onChange={handleChange} required min={new Date().toISOString().split("T")[0]} className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400" />
           </div>
 
-          {/* TIME */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Select Time</label>
-            <select
-              name="appointmentTime" value={formData.appointmentTime} onChange={handleChange} required
-              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
-            >
+            <select name="appointmentTime" value={formData.appointmentTime} onChange={handleChange} required className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400">
               <option value="">-- Choose a time --</option>
-              {timeSlots.map((t) => (
-                <option key={t} value={t}>{t}</option>
-              ))}
+              {timeSlots.map((t) => (<option key={t} value={t}>{t}</option>))}
             </select>
           </div>
 
-          {/* AREA */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Select Your Area</label>
-            <select
-              name="area" value={formData.area} onChange={handleChange} required
-              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
-            >
+            <select name="area" value={formData.area} onChange={handleChange} required className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400">
               <option value="">-- Select your area --</option>
               <option value="Ogba">Ogba</option>
               <option value="Ikeja">Ikeja</option>
@@ -168,57 +143,34 @@ export default function BookAppointment() {
             )}
           </div>
 
-          {/* ADDRESS */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Full Address</label>
-            <input
-              type="text" name="address" value={formData.address} onChange={handleChange} required
-              placeholder="e.g. 12 Balogun Street, Ogba"
-              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
-            />
+            <input type="text" name="address" value={formData.address} onChange={handleChange} required placeholder="e.g. 12 Balogun Street, Ogba" className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400" />
           </div>
 
-          {/* NOTES */}
           <div>
             <label className="text-sm text-gray-400 mb-1 block">Additional Notes (optional)</label>
-            <textarea
-              name="notes" value={formData.notes} onChange={handleChange}
-              placeholder="Any special requests or additional information..."
-              rows={3}
-              className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400 resize-none"
-            />
+            <textarea name="notes" value={formData.notes} onChange={handleChange} placeholder="Any special requests or additional information..." rows={3} className="w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400 resize-none" />
           </div>
 
-          {/* BOOKING SUMMARY */}
           {selectedService && formData.area && (
             <div className="bg-zinc-900 border border-zinc-700 rounded-lg p-4 text-sm">
               <p className="text-yellow-400 font-bold mb-2">Booking Summary</p>
               <p className="text-white">{selectedService.serviceName}</p>
               <p className="text-gray-400">{formatPrice(selectedService)}</p>
-              <p className="text-gray-400">{formData.area} {formData.address && `— ${formData.address}`}</p>
-              {isOutsideCoveredArea && (
-                <p className="text-yellow-400 text-xs mt-2">+ Transport fee TBC</p>
-              )}
+              <p className="text-gray-400">{formData.area}{formData.address && " â€” " + formData.address}</p>
+              {isOutsideCoveredArea && <p className="text-yellow-400 text-xs mt-2">+ Transport fee TBC</p>}
             </div>
           )}
 
-          <button
-            type="submit" disabled={loading || success}
-            className="bg-yellow-400 text-black font-bold py-3 rounded hover:bg-yellow-300 transition disabled:opacity-50"
-          >
+          <button type="submit" disabled={loading || success} className="bg-yellow-400 text-black font-bold py-3 rounded hover:bg-yellow-300 transition disabled:opacity-50">
             {loading ? "Submitting..." : "Confirm Booking"}
           </button>
         </form>
       </div>
 
-      {/* WHATSAPP */}
-      
-        href="https://wa.me/2349132490766"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 text-white px-4 py-3 rounded-full font-bold shadow-lg hover:bg-green-400 transition z-50 flex items-center gap-2"
-      >
-        <span>??</span> WhatsApp
+      <a href="https://wa.me/2349132490766" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 bg-green-500 text-white px-4 py-3 rounded-full font-bold shadow-lg hover:bg-green-400 transition z-50 flex items-center gap-2">
+        WhatsApp
       </a>
     </div>
   );

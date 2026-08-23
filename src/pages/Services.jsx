@@ -26,10 +26,8 @@ export default function Services() {
   };
 
   const formatPrice = (service) => {
-    if (service.priceType === "from") {
-      return `From NGN ${service.price.toLocaleString()}`;
-    }
-    return `NGN ${service.price.toLocaleString()}`;
+    if (service.priceType === "from") return "From NGN " + service.price.toLocaleString();
+    return "NGN " + service.price.toLocaleString();
   };
 
   return (
@@ -46,16 +44,14 @@ export default function Services() {
         </div>
       </nav>
 
-      {/* HOME SERVICE BANNER */}
       <div className="bg-yellow-400 text-black text-center py-3 px-4">
-        <p className="font-bold text-sm">?? HOME SERVICE ONLY — We come to you in Ogba, Ikeja, Agege & Ijaiye</p>
+        <p className="font-bold text-sm">HOME SERVICE ONLY - We come to you in Ogba, Ikeja, Agege and Ijaiye</p>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-12">
         <h2 className="text-3xl font-bold text-center mb-2">Our <span className="text-yellow-400">Services</span></h2>
         <p className="text-gray-400 text-center mb-4">Professional grooming delivered to your doorstep</p>
 
-        {/* AREA COVERAGE NOTE */}
         <div className="bg-zinc-900 border border-yellow-400 rounded-lg p-4 mb-10 text-sm text-gray-300 text-center">
           <p>Home service is included in listed prices for <span className="text-yellow-400 font-bold">Ogba | Ikeja | Agege | Ijaiye</span>.</p>
           <p className="mt-1">For locations outside these areas, an additional transport fee may apply and will be confirmed before booking is accepted.</p>
@@ -67,15 +63,7 @@ export default function Services() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {services.map((service) => (
               <div key={service._id} className="bg-zinc-900 border border-zinc-700 hover:border-yellow-400 rounded-lg overflow-hidden transition group">
-                <div
-                  style={{
-                    backgroundImage: `url(${service.image})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    height: "180px",
-                    backgroundColor: "#27272a"
-                  }}
-                />
+                <div style={{ backgroundImage: `url(${service.image})`, backgroundSize: "cover", backgroundPosition: "center", height: "180px", backgroundColor: "#27272a" }} />
                 <div className="p-4">
                   <h3 className="text-base font-bold text-white group-hover:text-yellow-400 transition mb-1">{service.serviceName}</h3>
                   <p className="text-gray-400 text-xs mb-3 leading-relaxed">{service.description}</p>
@@ -95,21 +83,14 @@ export default function Services() {
           </div>
         )}
 
-        {/* PRICE NOTE */}
         <div className="mt-10 bg-zinc-900 border border-zinc-700 rounded-lg p-5 text-sm text-gray-400">
           <p className="text-yellow-400 font-bold mb-2">Important Pricing Note</p>
           <p>Services marked <span className="text-yellow-400">"From"</span> display the starting price. The final price may vary based on hair length, thickness, style and service requirements. Final price will be confirmed before your appointment begins.</p>
         </div>
       </div>
 
-      {/* WHATSAPP BUTTON */}
-      
-        href="https://wa.me/2349132490766"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 text-white px-4 py-3 rounded-full font-bold shadow-lg hover:bg-green-400 transition z-50 flex items-center gap-2"
-      >
-        <span>??</span> WhatsApp
+      <a href="https://wa.me/2349132490766" target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 bg-green-500 text-white px-4 py-3 rounded-full font-bold shadow-lg hover:bg-green-400 transition z-50 flex items-center gap-2">
+        WhatsApp
       </a>
     </div>
   );
