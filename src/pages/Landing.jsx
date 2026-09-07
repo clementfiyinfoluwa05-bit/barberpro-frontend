@@ -8,7 +8,7 @@ export default function Landing() {
 
   useEffect(() => {
     API.get("/services")
-      .then(({ data }) => setServices(data.slice(0, 4)))
+      .then(({ data }) => setServices(data.slice(0, 8)))
       .catch((err) => console.error(err));
   }, []);
 
