@@ -45,7 +45,7 @@ export default function Services() {
       </nav>
 
       <div className="bg-yellow-400 text-black text-center py-3 px-4">
-        <p className="font-bold text-sm">HOME SERVICE ONLY - We come to you in Ogba, Ikeja, Agege and Ijaiye</p>
+        <p className="font-bold text-sm">HOME SERVICE ACROSS LAGOS - Mainland &amp; Island. Prices vary by area.</p>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-12">
@@ -53,8 +53,8 @@ export default function Services() {
         <p className="text-muted text-center mb-4">Professional grooming delivered to your doorstep</p>
 
         <div className="bg-card border border-brand rounded-lg p-4 mb-10 text-sm text-ink-2 text-center">
-          <p>Home service is included in listed prices for <span className="text-brand font-bold">Ogba | Ikeja | Agege | Ijaiye</span>.</p>
-          <p className="mt-1">For locations outside these areas, an additional transport fee may apply and will be confirmed before booking is accepted.</p>
+          <p>We come to you <span className="text-brand font-bold">anywhere in Lagos — Mainland &amp; Island</span>.</p>
+          <p className="mt-1">Prices vary by area. We confirm your final price, including any travel fee, before your booking is accepted.</p>
         </div>
 
         {loading ? <Spinner /> : services.length === 0 ? (

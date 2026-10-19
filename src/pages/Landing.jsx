@@ -41,7 +41,7 @@ export default function Landing() {
       </nav>
 
       <div className="bg-yellow-400 text-black text-center py-3 px-4">
-        <p className="font-bold text-sm">HOME SERVICE ONLY - We come to you in Ogba, Ikeja, Agege and Ijaiye</p>
+        <p className="font-bold text-sm">HOME SERVICE ACROSS LAGOS - Mainland &amp; Island. Prices vary by area.</p>
       </div>
 
       <section className="flex flex-col items-center justify-center text-center py-20 px-6">
@@ -49,7 +49,7 @@ export default function Landing() {
           Premium Grooming <span className="text-brand">At Your Door</span>
         </h2>
         <p className="text-muted text-base md:text-lg mb-3 max-w-xl">
-          Professional mobile barber and grooming services in Ogba, Ikeja, Agege and Ijaiye
+          Professional mobile barber and grooming services anywhere in Lagos — from Ikeja and Surulere to Lekki, Ikoyi and Victoria Island
         </p>
         <p className="text-brand text-sm mb-8 font-medium">No shop. No travel. We come to you.</p>
         <div className="flex flex-col sm:flex-row gap-4">
@@ -64,7 +64,7 @@ export default function Landing() {
 
       <section id="services" className="py-16 px-6 bg-card">
         <h3 className="text-center text-3xl font-bold text-brand mb-4">Our Services</h3>
-        <p className="text-center text-muted text-sm mb-10">All services include home visit within our coverage areas</p>
+        <p className="text-center text-muted text-sm mb-10">Every service comes to your home, anywhere in Lagos</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {services.map((service) => (
             <Link to="/services" key={service._id} className="bg-page border border-brand rounded-lg overflow-hidden hover:border-brand transition group">
@@ -86,10 +86,10 @@ export default function Landing() {
       </section>
 
       <section className="py-16 px-6">
-        <h3 className="text-center text-3xl font-bold text-brand mb-4">Coverage Areas</h3>
-        <p className="text-center text-muted text-sm mb-10">We currently serve the following areas in Lagos</p>
+        <h3 className="text-center text-3xl font-bold text-brand mb-4">Where We Come To You</h3>
+        <p className="text-center text-muted text-sm mb-10">We come to you anywhere in Lagos, Mainland and Island</p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-          {["Ogba", "Ikeja", "Agege", "Ijaiye"].map((area) => (
+          {["Lagos Mainland", "Lagos Island", "Lekki & Ajah", "Ikorodu & Beyond"].map((area) => (
             <div key={area} className="bg-card border border-brand rounded-lg p-5 text-center">
               <p className="text-2xl mb-2">📍</p>
               <p className="font-bold text-brand">{area}</p>
@@ -97,7 +97,7 @@ export default function Landing() {
           ))}
         </div>
         <p className="text-center text-subtle text-xs mt-6 max-w-lg mx-auto">
-          For locations outside these areas, an additional transportation fee may apply. Contact us via WhatsApp to confirm.
+          Prices vary by area — we confirm your final price, including any travel fee, before your appointment. Outside Lagos? Contact us on WhatsApp.
         </p>
       </section>
 
@@ -138,7 +138,7 @@ export default function Landing() {
       <section className="py-16 px-6 text-center bg-card">
         <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready for a Fresh Look?</h3>
         <p className="text-muted mb-2">Book your home service appointment today</p>
-        <p className="text-brand text-sm mb-8">Serving Ogba | Ikeja | Agege | Ijaiye</p>
+        <p className="text-brand text-sm mb-8">Serving all of Lagos — Mainland &amp; Island</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/register" className="bg-yellow-400 text-black px-8 py-4 rounded font-bold text-lg hover:bg-yellow-300 transition">
             Book Now
@@ -168,7 +168,7 @@ export default function Landing() {
 
       <footer className="py-8 px-6 border-t border-line-soft text-center text-subtle text-sm">
         <p className="text-brand font-bold text-lg mb-2">TECH BARBER QUEEN</p>
-        <p className="mb-2">Ogba | Ikeja | Agege | Ijaiye, Lagos</p>
+        <p className="mb-2">Home service across Lagos, Nigeria</p>
         <div className="flex justify-center gap-6 mb-3">
           <a href="https://wa.me/2349132490766" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300">WhatsApp</a>
           <a href="https://www.instagram.com/techbarberqueen.ng" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300">Instagram</a>
