@@ -8,6 +8,10 @@ import Services from "./pages/Services";
 import BookAppointment from "./pages/BookAppointment";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import FindBarbers from "./pages/FindBarbers";
+import BarberProfile from "./pages/BarberProfile";
+import BecomeBarber from "./pages/BecomeBarber";
+import BarberDashboard from "./pages/BarberDashboard";
 
 function App() {
   return (
@@ -22,6 +26,10 @@ function App() {
             <Route path="/book" element={<BookAppointment />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/barbers" element={<FindBarbers />} />
+            <Route path="/barbers/:slug" element={<BarberProfile />} />
+            <Route path="/join-as-barber" element={<BecomeBarber />} />
+            <Route path="/barber/dashboard" element={<BarberDashboard />} />
           </Route>
         </Routes>
       </Router>

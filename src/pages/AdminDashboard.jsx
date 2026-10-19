@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import API from "../services/api";
+import AdminBarbers from "../components/AdminBarbers";
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [tab, setTab] = useState("appointments");
 
   useEffect(() => {
     if (!user || user.role !== "admin") return navigate("/login");
@@ -70,9 +72,23 @@ export default function AdminDashboard() {
       </nav>
 
       <div className="max-w-6xl mx-auto px-8 py-10">
-        <h2 className="text-3xl font-bold mb-8">
+        <h2 className="text-3xl font-bold mb-6">
           Admin <span className="text-yellow-400">Dashboard</span>
         </h2>
+
+        <div className="flex gap-2 mb-8 border-b border-zinc-800">
+          {[["appointments", "Appointments"], ["barbers", "Barbers"]].map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setTab(key)}
+              className={`px-4 py-2 text-sm font-bold border-b-2 -mb-px transition ${tab === key ? "border-yellow-400 text-yellow-400" : "border-transparent text-gray-400 hover:text-white"}`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {tab === "barbers" ? <AdminBarbers /> : (<>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
           {[
@@ -123,8 +139,11 @@ export default function AdminDashboard() {
                       </p>
                       <p className="text-gray-500 text-xs">{apt.customerId?.phone}</p>
                     </td>
-                    <td className="py-4 pr-4 text-gray-300">
+                    <td className="py-4 pr-4 text-gray-300 max-w-xs">
                       {apt.serviceId?.serviceName || "Service"}
+                      {apt.notes && (
+                        <p className="text-gray-500 text-xs mt-1 whitespace-pre-line break-words">{apt.notes}</p>
+                      )}
                     </td>
                     <td className="py-4 pr-4 text-gray-300">{apt.appointmentDate}</td>
                     <td className="py-4 pr-4 text-gray-300">{apt.appointmentTime}</td>
@@ -167,6 +186,7 @@ export default function AdminDashboard() {
             </table>
           </div>
         )}
+        </>)}
       </div>
     </div>
   );

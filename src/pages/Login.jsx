@@ -23,6 +23,8 @@ export default function Login() {
       login(data);
       if (data.role === "admin") {
         navigate("/admin");
+      } else if (data.role === "barber") {
+        navigate("/barber/dashboard");
       } else {
         navigate("/dashboard");
       }

@@ -20,6 +20,8 @@ export default function Landing() {
         <div className="hidden md:flex gap-6 text-sm font-medium items-center">
           <a href="#services" className="hover:text-yellow-400 transition">Services</a>
           <Link to="/services" className="hover:text-yellow-400 transition">Book Now</Link>
+          <Link to="/barbers" className="hover:text-yellow-400 transition">Find a Barber</Link>
+          <Link to="/join-as-barber" className="hover:text-yellow-400 transition">Join as a Barber</Link>
           <Link to="/login" className="hover:text-yellow-400 transition">Login</Link>
           <a href="https://www.instagram.com/techbarberqueen.ng" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition">Instagram</a>
         </div>
@@ -30,6 +32,8 @@ export default function Landing() {
           <div className="absolute top-full left-0 w-full bg-black border-b border-yellow-400 flex flex-col items-center gap-4 py-6 z-50 md:hidden">
             <a href="#services" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Services</a>
             <Link to="/services" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Book Now</Link>
+            <Link to="/barbers" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Find a Barber</Link>
+            <Link to="/join-as-barber" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Join as a Barber</Link>
             <Link to="/login" onClick={() => setMenuOpen(false)} className="hover:text-yellow-400 transition">Login</Link>
             <a href="https://www.instagram.com/techbarberqueen.ng" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition">Instagram</a>
           </div>
@@ -142,6 +146,19 @@ export default function Landing() {
           <a href="https://wa.me/2349132490766" target="_blank" rel="noopener noreferrer" className="bg-green-500 text-white px-8 py-4 rounded font-bold text-lg hover:bg-green-400 transition">
             WhatsApp Us
           </a>
+        </div>
+      </section>
+
+      <section className="py-16 px-6 text-center">
+        <h3 className="text-2xl md:text-3xl font-bold mb-4">Are You a <span className="text-yellow-400">Barber or Stylist?</span></h3>
+        <p className="text-gray-400 mb-8 max-w-xl mx-auto">Join TechBarberQueen, list your services and get customers near you — at their homes or in your shop.</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link to="/join-as-barber" className="bg-yellow-400 text-black px-8 py-4 rounded font-bold hover:bg-yellow-300 transition">
+            Join as a Barber
+          </Link>
+          <Link to="/barbers" className="border border-yellow-400 text-yellow-400 px-8 py-4 rounded font-bold hover:bg-yellow-400 hover:text-black transition">
+            Find a Barber Near You
+          </Link>
         </div>
       </section>
 
