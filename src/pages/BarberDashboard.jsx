@@ -7,8 +7,8 @@ import LocationFields from "../components/LocationFields";
 import { errorMessage, formatMoney } from "../utils/format";
 import { isUploadConfigured, uploadImage, MAX_PHOTO_MB } from "../utils/upload";
 
-const input = "w-full bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400";
-const smallInput = "w-full bg-black border border-zinc-700 text-white px-3 py-2 rounded focus:outline-none focus:border-yellow-400 text-sm";
+const input = "w-full bg-page border border-line text-ink px-4 py-3 rounded focus:outline-none focus:border-brand";
+const smallInput = "w-full bg-page border border-line text-ink px-3 py-2 rounded focus:outline-none focus:border-brand text-sm";
 const MAX_PHOTOS = 8;
 const emptyService = () => ({ name: "", price: "", priceType: "fixed", durationMins: 60, description: "" });
 
@@ -189,7 +189,7 @@ export default function BarberDashboard() {
 
   if (loading || !form) {
     return (
-      <div className="min-h-screen bg-black text-white">
+      <div className="min-h-screen bg-page text-ink">
         {loading ? <Spinner /> : <p className="text-center text-red-400 p-10">{message.text}</p>}
       </div>
     );
@@ -198,13 +198,13 @@ export default function BarberDashboard() {
   const banner = STATUS_BANNER[profile.status];
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <nav className="flex justify-between items-center gap-3 px-4 sm:px-8 py-5 border-b border-yellow-400">
-        <h1 className="text-yellow-400 text-base sm:text-xl font-bold tracking-widest">TECH BARBER QUEEN</h1>
+    <div className="min-h-screen bg-page text-ink">
+      <nav className="flex justify-between items-center gap-3 px-4 sm:px-8 py-5 border-b border-brand">
+        <h1 className="text-brand text-base sm:text-xl font-bold tracking-widest">TECH BARBER QUEEN</h1>
         <div className="flex gap-3 items-center text-sm">
-          {user?.role === "admin" && <Link to="/admin" className="text-gray-300 hover:text-yellow-400">Admin</Link>}
-          <Link to="/dashboard" className="text-gray-300 hover:text-yellow-400 hidden sm:block">My bookings</Link>
-          <button onClick={handleLogout} className="border border-yellow-400 text-yellow-400 px-3 sm:px-4 py-2 rounded hover:bg-yellow-400 hover:text-black transition">Logout</button>
+          {user?.role === "admin" && <Link to="/admin" className="text-ink-2 hover:text-brand">Admin</Link>}
+          <Link to="/dashboard" className="text-ink-2 hover:text-brand hidden sm:block">My bookings</Link>
+          <button onClick={handleLogout} className="border border-brand text-brand px-3 sm:px-4 py-2 rounded hover:bg-yellow-400 hover:text-black transition">Logout</button>
         </div>
       </nav>
 
@@ -213,76 +213,76 @@ export default function BarberDashboard() {
       <form onSubmit={handleSave} className="max-w-4xl mx-auto px-4 sm:px-8 py-8 flex flex-col gap-10">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold">My <span className="text-yellow-400">Barber Profile</span></h2>
-            <p className="text-gray-400 text-sm mt-1">Keep it complete — profiles with photos and prices get more bookings.</p>
+            <h2 className="text-3xl font-bold">My <span className="text-brand">Barber Profile</span></h2>
+            <p className="text-muted text-sm mt-1">Keep it complete — profiles with photos and prices get more bookings.</p>
           </div>
-          <Link to={`/barbers/${profile.slug}`} className="border border-yellow-400 text-yellow-400 px-4 py-2 rounded text-sm font-bold text-center hover:bg-yellow-400 hover:text-black transition">
+          <Link to={`/barbers/${profile.slug}`} className="border border-brand text-brand px-4 py-2 rounded text-sm font-bold text-center hover:bg-yellow-400 hover:text-black transition">
             View my public profile
           </Link>
         </div>
 
-        <section className="bg-zinc-900 border border-zinc-700 rounded-lg p-5">
-          <p className="text-yellow-400 font-bold mb-2">Your profile link</p>
+        <section className="bg-card border border-line rounded-lg p-5">
+          <p className="text-brand font-bold mb-2">Your profile link</p>
           <div className="flex flex-col sm:flex-row gap-2">
-            <input readOnly value={profileUrl} className={`${smallInput} text-gray-300`} onFocus={(e) => e.target.select()} />
+            <input readOnly value={profileUrl} className={`${smallInput} text-ink-2`} onFocus={(e) => e.target.select()} />
             <button type="button" onClick={copyLink} className="bg-yellow-400 text-black font-bold px-4 py-2 rounded text-sm whitespace-nowrap">{copied ? "Copied ✓" : "Copy link"}</button>
             <a href={`https://wa.me/?text=${encodeURIComponent(`Book me on TechBarberQueen: ${profileUrl}`)}`} target="_blank" rel="noopener noreferrer" className="bg-green-500 text-white font-bold px-4 py-2 rounded text-sm text-center whitespace-nowrap">WhatsApp</a>
           </div>
-          <p className="text-gray-500 text-xs mt-2">Put this link in your Instagram and TikTok bio and your WhatsApp status.</p>
+          <p className="text-subtle text-xs mt-2">Put this link in your Instagram and TikTok bio and your WhatsApp status.</p>
         </section>
 
         <section className="flex flex-col gap-4">
-          <h3 className="text-xl font-bold text-yellow-400">About you</h3>
+          <h3 className="text-xl font-bold text-brand">About you</h3>
           <div>
-            <label className="text-sm text-gray-400 mb-1 block">Business or display name</label>
+            <label className="text-sm text-muted mb-1 block">Business or display name</label>
             <input value={form.displayName} onChange={(e) => set("displayName", e.target.value)} required maxLength={80} className={input} />
           </div>
           <div>
-            <label className="text-sm text-gray-400 mb-1 block">Bio</label>
+            <label className="text-sm text-muted mb-1 block">Bio</label>
             <textarea value={form.bio} onChange={(e) => set("bio", e.target.value)} maxLength={1000} rows={4} placeholder="Your experience, specialties, what makes your cuts special…" className={`${input} resize-none`} />
-            <p className="text-gray-500 text-xs text-right">{form.bio.length}/1000</p>
+            <p className="text-subtle text-xs text-right">{form.bio.length}/1000</p>
           </div>
         </section>
 
         <section className="flex flex-col gap-4">
-          <h3 className="text-xl font-bold text-yellow-400">Location</h3>
+          <h3 className="text-xl font-bold text-brand">Location</h3>
           <LocationFields value={form.location} onChange={(v) => set("location", v)} />
-          <div className="bg-zinc-900 border border-zinc-700 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="bg-card border border-line rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="text-sm">
               <p className="font-bold">Show up in "Near me" searches</p>
-              <p className="text-gray-400 text-xs">
+              <p className="text-muted text-xs">
                 {form.coords ? "✓ Map location saved. Customers only see your distance, never your exact address." : "Add your map location so nearby customers can find you."}
               </p>
             </div>
             <div className="flex gap-2">
-              <button type="button" onClick={useMyLocation} disabled={locating} className="border border-yellow-400 text-yellow-400 px-4 py-2 rounded text-sm font-bold hover:bg-yellow-400 hover:text-black transition disabled:opacity-50 whitespace-nowrap">
+              <button type="button" onClick={useMyLocation} disabled={locating} className="border border-brand text-brand px-4 py-2 rounded text-sm font-bold hover:bg-yellow-400 hover:text-black transition disabled:opacity-50 whitespace-nowrap">
                 {locating ? "Locating…" : form.coords ? "Update location" : "Use my current location"}
               </button>
-              {form.coords && <button type="button" onClick={() => set("coords", null)} className="text-gray-400 text-sm underline">Remove</button>}
+              {form.coords && <button type="button" onClick={() => set("coords", null)} className="text-muted text-sm underline">Remove</button>}
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 text-sm">
-            <label className="flex items-center gap-2 bg-zinc-900 border border-zinc-700 rounded px-4 py-3 flex-1">
+            <label className="flex items-center gap-2 bg-card border border-line rounded px-4 py-3 flex-1">
               <input type="checkbox" checked={form.homeService} onChange={(e) => set("homeService", e.target.checked)} className="accent-yellow-400 w-4 h-4" />
               I go to customers' homes
             </label>
-            <label className="flex items-center gap-2 bg-zinc-900 border border-zinc-700 rounded px-4 py-3 flex-1">
+            <label className="flex items-center gap-2 bg-card border border-line rounded px-4 py-3 flex-1">
               <input type="checkbox" checked={form.shopService} onChange={(e) => set("shopService", e.target.checked)} className="accent-yellow-400 w-4 h-4" />
               Customers come to my shop
             </label>
           </div>
           {form.homeService && (
             <div>
-              <label className="text-sm text-gray-400 mb-1 block">Other areas you travel to</label>
+              <label className="text-sm text-muted mb-1 block">Other areas you travel to</label>
               <div className="flex gap-2">
                 <input value={newArea} onChange={(e) => setNewArea(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addArea(); } }} list="area-suggestions" placeholder="e.g. Ogba" className={smallInput} />
-                <button type="button" onClick={addArea} className="bg-zinc-800 border border-zinc-600 px-4 rounded text-sm hover:border-yellow-400">Add</button>
+                <button type="button" onClick={addArea} className="bg-soft border border-line px-4 rounded text-sm hover:border-brand">Add</button>
               </div>
               <div className="flex flex-wrap gap-2 mt-3">
                 {form.serviceAreas.map((a) => (
-                  <span key={a} className="text-xs bg-zinc-900 border border-zinc-700 pl-3 pr-1 py-1 rounded flex items-center gap-1">
+                  <span key={a} className="text-xs bg-card border border-line pl-3 pr-1 py-1 rounded flex items-center gap-1">
                     {a}
-                    <button type="button" onClick={() => set("serviceAreas", form.serviceAreas.filter((x) => x !== a))} className="text-gray-400 hover:text-red-400 px-1" aria-label={`Remove ${a}`}>×</button>
+                    <button type="button" onClick={() => set("serviceAreas", form.serviceAreas.filter((x) => x !== a))} className="text-muted hover:text-red-400 px-1" aria-label={`Remove ${a}`}>×</button>
                   </span>
                 ))}
               </div>
@@ -292,12 +292,12 @@ export default function BarberDashboard() {
 
         <section className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-xl font-bold text-yellow-400">Services &amp; prices</h3>
+            <h3 className="text-xl font-bold text-brand">Services &amp; prices</h3>
             <button type="button" onClick={addService} className="bg-yellow-400 text-black font-bold px-4 py-2 rounded text-sm">+ Add service</button>
           </div>
-          {form.services.length === 0 && <p className="text-gray-400 text-sm bg-zinc-900 border border-zinc-700 rounded p-4">No services yet. Add your first one — e.g. "Haircut", "Beard trim", "Braids".</p>}
+          {form.services.length === 0 && <p className="text-muted text-sm bg-card border border-line rounded p-4">No services yet. Add your first one — e.g. "Haircut", "Beard trim", "Braids".</p>}
           {form.services.map((s, i) => (
-            <div key={s._id || `new-${i}`} className="bg-zinc-900 border border-zinc-700 rounded-lg p-4 grid grid-cols-2 sm:grid-cols-6 gap-3">
+            <div key={s._id || `new-${i}`} className="bg-card border border-line rounded-lg p-4 grid grid-cols-2 sm:grid-cols-6 gap-3">
               <input value={s.name} onChange={(e) => updateService(i, "name", e.target.value)} placeholder="Service name" maxLength={80} className={`${smallInput} col-span-2 sm:col-span-3`} aria-label="Service name" />
               <input type="number" min="0" step="any" inputMode="numeric" value={s.price} onChange={(e) => updateService(i, "price", e.target.value)} placeholder="Price" className={`${smallInput} sm:col-span-1`} aria-label="Price" />
               <select value={s.priceType} onChange={(e) => updateService(i, "priceType", e.target.value)} className={`${smallInput} sm:col-span-1`} aria-label="Price type">
@@ -309,7 +309,7 @@ export default function BarberDashboard() {
               </select>
               <input value={s.description} onChange={(e) => updateService(i, "description", e.target.value)} placeholder="Short description (optional)" maxLength={300} className={`${smallInput} col-span-2 sm:col-span-5`} aria-label="Description" />
               <div className="col-span-2 sm:col-span-6 flex justify-between items-center text-xs">
-                <span className="text-yellow-400">{s.price !== "" && !Number.isNaN(Number(s.price)) ? `${s.priceType === "from" ? "From " : ""}${formatMoney(s.price, profile.currency)}` : ""}</span>
+                <span className="text-brand">{s.price !== "" && !Number.isNaN(Number(s.price)) ? `${s.priceType === "from" ? "From " : ""}${formatMoney(s.price, profile.currency)}` : ""}</span>
                 <button type="button" onClick={() => removeService(i)} className="text-red-400 hover:underline">Remove</button>
               </div>
             </div>
@@ -317,14 +317,14 @@ export default function BarberDashboard() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h3 className="text-xl font-bold text-yellow-400">Photos of your work <span className="text-gray-500 text-sm font-normal">({form.photos.length}/{MAX_PHOTOS})</span></h3>
+          <h3 className="text-xl font-bold text-brand">Photos of your work <span className="text-subtle text-sm font-normal">({form.photos.length}/{MAX_PHOTOS})</span></h3>
           {form.photos.length > 0 && (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {form.photos.map((p, i) => (
-                <div key={p} className="relative rounded overflow-hidden border border-zinc-700 group">
+                <div key={p} className="relative rounded overflow-hidden border border-line group">
                   <img src={p} alt={`Work ${i + 1}`} className="w-full h-32 object-cover" />
                   {i === 0 && <span className="absolute top-1 left-1 bg-yellow-400 text-black text-[10px] font-bold px-1.5 py-0.5 rounded">Cover</span>}
-                  <div className="absolute bottom-0 inset-x-0 bg-black/80 flex justify-between text-xs">
+                  <div className="absolute bottom-0 inset-x-0 bg-black/80 text-white flex justify-between text-xs">
                     <button type="button" onClick={() => movePhoto(i, -1)} disabled={i === 0} className="px-2 py-1 disabled:opacity-30" aria-label="Move left">◀</button>
                     <button type="button" onClick={() => set("photos", form.photos.filter((x) => x !== p))} className="px-2 py-1 text-red-400">Delete</button>
                     <button type="button" onClick={() => movePhoto(i, 1)} disabled={i === form.photos.length - 1} className="px-2 py-1 disabled:opacity-30" aria-label="Move right">▶</button>
@@ -337,14 +337,14 @@ export default function BarberDashboard() {
             isUploadConfigured ? (
               <div>
                 <input ref={fileRef} type="file" accept="image/*" multiple onChange={handleFiles} className="hidden" />
-                <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="w-full border-2 border-dashed border-zinc-600 hover:border-yellow-400 rounded-lg py-6 text-sm text-gray-300 transition disabled:opacity-50">
+                <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="w-full border-2 border-dashed border-line hover:border-brand rounded-lg py-6 text-sm text-ink-2 transition disabled:opacity-50">
                   {uploading ? "Uploading…" : `+ Upload photos (max ${MAX_PHOTO_MB} MB each)`}
                 </button>
               </div>
             ) : (
               <div className="flex gap-2">
                 <input value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addPhotoUrl(); } }} placeholder="Paste a photo link (https://...)" className={smallInput} />
-                <button type="button" onClick={addPhotoUrl} className="bg-zinc-800 border border-zinc-600 px-4 rounded text-sm hover:border-yellow-400">Add</button>
+                <button type="button" onClick={addPhotoUrl} className="bg-soft border border-line px-4 rounded text-sm hover:border-brand">Add</button>
               </div>
             )
           )}
@@ -354,7 +354,7 @@ export default function BarberDashboard() {
           <div className={`${message.type === "error" ? "bg-red-500" : "bg-green-600"} text-white px-4 py-3 rounded text-sm text-center`}>{message.text}</div>
         )}
 
-        <div className="sticky bottom-0 bg-black/95 border-t border-zinc-800 -mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+        <div className="sticky bottom-0 bg-page/95 border-t border-line-soft -mx-4 sm:-mx-8 pl-20 pr-4 sm:pl-24 sm:pr-8 py-4">
           <button type="submit" disabled={saving || uploading} className="w-full bg-yellow-400 text-black font-bold py-3 rounded hover:bg-yellow-300 transition disabled:opacity-50">
             {saving ? "Saving…" : "Save profile"}
           </button>

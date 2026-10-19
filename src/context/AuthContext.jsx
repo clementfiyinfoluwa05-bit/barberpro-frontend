@@ -1,19 +1,18 @@
 import { createContext, useContext, useState } from "react";
+import { readJSON, writeJSON, remove } from "../utils/storage";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const [user, setUser] = useState(() => readJSON("user"));
 
   const login = (userData) => {
-    localStorage.setItem("user", JSON.stringify(userData));
+    writeJSON("user", userData);
     setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem("user");
+    remove("user");
     setUser(null);
   };
 

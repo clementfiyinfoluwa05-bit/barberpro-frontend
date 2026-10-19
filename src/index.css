@@ -1,1 +1,77 @@
 @import "tailwindcss";
+
+/*
+  TechBarberQueen colour themes.
+  Pages use these names instead of raw colours:
+    bg-page / bg-card / bg-soft         backgrounds
+    text-ink / text-ink-2 / text-muted / text-subtle   text, strongest to softest
+    text-brand / border-brand           brand gold for text, borders and accents
+    border-line / border-line-soft      dividers and input borders
+  Yellow buttons keep using bg-yellow-400 + text-black in both themes.
+*/
+@theme inline {
+  --color-page: var(--tbq-page);
+  --color-card: var(--tbq-card);
+  --color-soft: var(--tbq-soft);
+  --color-ink: var(--tbq-ink);
+  --color-ink-2: var(--tbq-ink-2);
+  --color-muted: var(--tbq-muted);
+  --color-subtle: var(--tbq-subtle);
+  --color-brand: var(--tbq-brand);
+  --color-line: var(--tbq-line);
+  --color-line-soft: var(--tbq-line-soft);
+}
+
+/* Dark (default) — the original black & yellow look, with brighter secondary text. */
+:root {
+  color-scheme: dark;
+  --tbq-page: #000000;
+  --tbq-card: #18181b;
+  --tbq-soft: #27272a;
+  --tbq-ink: #ffffff;
+  --tbq-ink-2: #e4e4e7;
+  --tbq-muted: #b4b4bd;
+  --tbq-subtle: #9a9aa6;
+  --tbq-brand: #facc15;
+  --tbq-line: #52525b;
+  --tbq-line-soft: #3f3f46;
+  --tbq-overlay: rgba(0, 0, 0, 0.95);
+
+  /* Deeper button colours so white text on them stays readable outdoors. */
+  --color-green-500: #15803d;
+  --color-green-600: #166534;
+  --color-red-500: #dc2626;
+  --color-red-600: #b91c1c;
+  --color-blue-500: #2563eb;
+}
+
+/* Light — white background for bright sunlight. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --tbq-page: #ffffff;
+  --tbq-card: #f4f4f5;
+  --tbq-soft: #e4e4e7;
+  --tbq-ink: #0a0a0a;
+  --tbq-ink-2: #27272a;
+  --tbq-muted: #3f3f46;
+  --tbq-subtle: #52525b;
+  --tbq-brand: #8a5a00;
+  --tbq-line: #a1a1aa;
+  --tbq-line-soft: #d4d4d8;
+  --tbq-overlay: rgba(255, 255, 255, 0.96);
+
+  /* Status colours readable on white. */
+  --color-green-400: #15803d;
+  --color-green-300: #166534;
+  --color-red-400: #b91c1c;
+  --color-blue-400: #1d4ed8;
+  --color-orange-400: #c2410c;
+  --color-pink-400: #be185d;
+  --color-pink-300: #9d174d;
+}
+
+body {
+  background-color: var(--tbq-page);
+  color: var(--tbq-ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}

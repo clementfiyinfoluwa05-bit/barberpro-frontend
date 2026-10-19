@@ -31,11 +31,11 @@ export default function Services() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <nav className="flex justify-between items-center px-6 py-5 border-b border-yellow-400">
-        <h1 className="text-yellow-400 text-xl font-bold tracking-widest">TECH BARBER QUEEN</h1>
+    <div className="min-h-screen bg-page text-ink">
+      <nav className="flex justify-between items-center px-6 py-5 border-b border-brand">
+        <h1 className="text-brand text-xl font-bold tracking-widest">TECH BARBER QUEEN</h1>
         <div className="flex gap-4">
-          <button onClick={() => navigate("/")} className="text-gray-400 hover:text-yellow-400 text-sm transition">Home</button>
+          <button onClick={() => navigate("/")} className="text-muted hover:text-brand text-sm transition">Home</button>
           {user ? (
             <button onClick={() => navigate("/dashboard")} className="bg-yellow-400 text-black px-4 py-2 rounded font-bold text-sm hover:bg-yellow-300 transition">Dashboard</button>
           ) : (
@@ -49,27 +49,27 @@ export default function Services() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-12">
-        <h2 className="text-3xl font-bold text-center mb-2">Our <span className="text-yellow-400">Services</span></h2>
-        <p className="text-gray-400 text-center mb-4">Professional grooming delivered to your doorstep</p>
+        <h2 className="text-3xl font-bold text-center mb-2">Our <span className="text-brand">Services</span></h2>
+        <p className="text-muted text-center mb-4">Professional grooming delivered to your doorstep</p>
 
-        <div className="bg-zinc-900 border border-yellow-400 rounded-lg p-4 mb-10 text-sm text-gray-300 text-center">
-          <p>Home service is included in listed prices for <span className="text-yellow-400 font-bold">Ogba | Ikeja | Agege | Ijaiye</span>.</p>
+        <div className="bg-card border border-brand rounded-lg p-4 mb-10 text-sm text-ink-2 text-center">
+          <p>Home service is included in listed prices for <span className="text-brand font-bold">Ogba | Ikeja | Agege | Ijaiye</span>.</p>
           <p className="mt-1">For locations outside these areas, an additional transport fee may apply and will be confirmed before booking is accepted.</p>
         </div>
 
         {loading ? <Spinner /> : services.length === 0 ? (
-          <p className="text-center text-gray-400">No services available yet.</p>
+          <p className="text-center text-muted">No services available yet.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {services.map((service) => (
-              <div key={service._id} className="bg-zinc-900 border border-zinc-700 hover:border-yellow-400 rounded-lg overflow-hidden transition group">
+              <div key={service._id} className="bg-card border border-line hover:border-brand rounded-lg overflow-hidden transition group">
                 <div style={{ backgroundImage: `url(${service.image})`, backgroundSize: "cover", backgroundPosition: "center", height: "180px", backgroundColor: "#27272a" }} />
                 <div className="p-4">
-                  <h3 className="text-base font-bold text-white group-hover:text-yellow-400 transition mb-1">{service.serviceName}</h3>
-                  <p className="text-gray-400 text-xs mb-3 leading-relaxed">{service.description}</p>
+                  <h3 className="text-base font-bold text-ink group-hover:text-brand transition mb-1">{service.serviceName}</h3>
+                  <p className="text-muted text-xs mb-3 leading-relaxed">{service.description}</p>
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-yellow-400 font-bold text-sm">{formatPrice(service)}</span>
-                    <span className="text-gray-500 text-xs">{service.duration} mins</span>
+                    <span className="text-brand font-bold text-sm">{formatPrice(service)}</span>
+                    <span className="text-subtle text-xs">{service.duration} mins</span>
                   </div>
                   <button
                     onClick={() => user ? navigate("/book", { state: { service } }) : navigate("/login")}
@@ -83,9 +83,9 @@ export default function Services() {
           </div>
         )}
 
-        <div className="mt-10 bg-zinc-900 border border-zinc-700 rounded-lg p-5 text-sm text-gray-400">
-          <p className="text-yellow-400 font-bold mb-2">Important Pricing Note</p>
-          <p>Services marked <span className="text-yellow-400">"From"</span> display the starting price. The final price may vary based on hair length, thickness, style and service requirements. Final price will be confirmed before your appointment begins.</p>
+        <div className="mt-10 bg-card border border-line rounded-lg p-5 text-sm text-muted">
+          <p className="text-brand font-bold mb-2">Important Pricing Note</p>
+          <p>Services marked <span className="text-brand">"From"</span> display the starting price. The final price may vary based on hair length, thickness, style and service requirements. Final price will be confirmed before your appointment begins.</p>
         </div>
       </div>
 

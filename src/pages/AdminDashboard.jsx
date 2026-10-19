@@ -49,22 +49,22 @@ export default function AdminDashboard() {
 
   const statusColor = (status) => {
     if (status === "confirmed") return "text-green-400";
-    if (status === "pending") return "text-yellow-400";
+    if (status === "pending") return "text-brand";
     if (status === "completed") return "text-blue-400";
     if (status === "cancelled") return "text-red-400";
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <nav className="flex justify-between items-center px-8 py-5 border-b border-yellow-400">
-        <h1 className="text-yellow-400 text-xl font-bold tracking-widest">
+    <div className="min-h-screen bg-page text-ink">
+      <nav className="flex justify-between items-center px-8 py-5 border-b border-brand">
+        <h1 className="text-brand text-xl font-bold tracking-widest">
           TECH BARBER QUEEN - ADMIN
         </h1>
         <div className="flex gap-4 items-center">
-          <span className="text-gray-400 text-sm">Admin: {user?.fullName}</span>
+          <span className="text-muted text-sm">Admin: {user?.fullName}</span>
           <button
             onClick={handleLogout}
-            className="border border-yellow-400 text-yellow-400 px-4 py-2 rounded text-sm hover:bg-yellow-400 hover:text-black transition"
+            className="border border-brand text-brand px-4 py-2 rounded text-sm hover:bg-yellow-400 hover:text-black transition"
           >
             Logout
           </button>
@@ -73,15 +73,15 @@ export default function AdminDashboard() {
 
       <div className="max-w-6xl mx-auto px-8 py-10">
         <h2 className="text-3xl font-bold mb-6">
-          Admin <span className="text-yellow-400">Dashboard</span>
+          Admin <span className="text-brand">Dashboard</span>
         </h2>
 
-        <div className="flex gap-2 mb-8 border-b border-zinc-800">
+        <div className="flex gap-2 mb-8 border-b border-line-soft">
           {[["appointments", "Appointments"], ["barbers", "Barbers"]].map(([key, label]) => (
             <button
               key={key}
               onClick={() => setTab(key)}
-              className={`px-4 py-2 text-sm font-bold border-b-2 -mb-px transition ${tab === key ? "border-yellow-400 text-yellow-400" : "border-transparent text-gray-400 hover:text-white"}`}
+              className={`px-4 py-2 text-sm font-bold border-b-2 -mb-px transition ${tab === key ? "border-brand text-brand" : "border-transparent text-muted hover:text-ink"}`}
             >
               {label}
             </button>
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
           {[
-            { label: "Total", value: total, color: "border-yellow-400 text-yellow-400" },
+            { label: "Total", value: total, color: "border-brand text-brand" },
             { label: "Pending", value: pending, color: "border-orange-400 text-orange-400" },
             { label: "Confirmed", value: confirmed, color: "border-green-400 text-green-400" },
             { label: "Completed", value: completed, color: "border-blue-400 text-blue-400" },
@@ -100,25 +100,25 @@ export default function AdminDashboard() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className={`bg-zinc-900 border ${stat.color} rounded-lg p-5 text-center`}
+              className={`bg-card border ${stat.color} rounded-lg p-5 text-center`}
             >
               <p className={`text-3xl font-bold ${stat.color.split(" ")[1]}`}>{stat.value}</p>
-              <p className="text-gray-400 text-sm mt-1">{stat.label}</p>
+              <p className="text-muted text-sm mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        <h3 className="text-xl font-bold text-yellow-400 mb-4">All Appointments</h3>
+        <h3 className="text-xl font-bold text-brand mb-4">All Appointments</h3>
 
         {loading ? (
-          <p className="text-gray-400">Loading appointments...</p>
+          <p className="text-muted">Loading appointments...</p>
         ) : appointments.length === 0 ? (
-          <p className="text-gray-400">No appointments yet.</p>
+          <p className="text-muted">No appointments yet.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-zinc-700 text-gray-400 text-left">
+                <tr className="border-b border-line text-muted text-left">
                   <th className="py-3 pr-4">Customer</th>
                   <th className="py-3 pr-4">Service</th>
                   <th className="py-3 pr-4">Date</th>
@@ -131,22 +131,22 @@ export default function AdminDashboard() {
                 {appointments.map((apt) => (
                   <tr
                     key={apt._id}
-                    className="border-b border-zinc-800 hover:bg-zinc-900 transition"
+                    className="border-b border-line-soft hover:bg-card transition"
                   >
                     <td className="py-4 pr-4">
-                      <p className="font-bold text-white">
+                      <p className="font-bold text-ink">
                         {apt.customerId?.fullName || "Customer"}
                       </p>
-                      <p className="text-gray-500 text-xs">{apt.customerId?.phone}</p>
+                      <p className="text-subtle text-xs">{apt.customerId?.phone}</p>
                     </td>
-                    <td className="py-4 pr-4 text-gray-300 max-w-xs">
+                    <td className="py-4 pr-4 text-ink-2 max-w-xs">
                       {apt.serviceId?.serviceName || "Service"}
                       {apt.notes && (
-                        <p className="text-gray-500 text-xs mt-1 whitespace-pre-line break-words">{apt.notes}</p>
+                        <p className="text-subtle text-xs mt-1 whitespace-pre-line break-words">{apt.notes}</p>
                       )}
                     </td>
-                    <td className="py-4 pr-4 text-gray-300">{apt.appointmentDate}</td>
-                    <td className="py-4 pr-4 text-gray-300">{apt.appointmentTime}</td>
+                    <td className="py-4 pr-4 text-ink-2">{apt.appointmentDate}</td>
+                    <td className="py-4 pr-4 text-ink-2">{apt.appointmentTime}</td>
                     <td className="py-4 pr-4">
                       <span className={`font-bold capitalize ${statusColor(apt.status)}`}>
                         {apt.status}

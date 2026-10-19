@@ -40,10 +40,10 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4">
-      <div className="bg-zinc-900 border border-yellow-400 rounded-lg p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-yellow-400 text-center mb-2">Create Account</h2>
-        <p className="text-gray-400 text-center text-sm mb-6">Join Tech Barber Queen today</p>
+    <div className="min-h-screen bg-page flex items-center justify-center px-4">
+      <div className="bg-card border border-brand rounded-lg p-8 w-full max-w-md">
+        <h2 className="text-3xl font-bold text-brand text-center mb-2">Create Account</h2>
+        <p className="text-muted text-center text-sm mb-6">Join Tech Barber Queen today</p>
 
         {error && (
           <div className="bg-red-500 text-white text-sm px-4 py-2 rounded mb-4 text-center">
@@ -55,27 +55,27 @@ export default function Register() {
           <input
             type="text" name="fullName" placeholder="Full Name"
             value={formData.fullName} onChange={handleChange} required
-            className="bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
+            className="bg-page border border-line text-ink px-4 py-3 rounded focus:outline-none focus:border-brand"
           />
           <input
             type="email" name="email" placeholder="Email Address"
             value={formData.email} onChange={handleChange} required
-            className="bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
+            className="bg-page border border-line text-ink px-4 py-3 rounded focus:outline-none focus:border-brand"
           />
           <input
             type="tel" name="phone" placeholder="Phone Number"
             value={formData.phone} onChange={handleChange} required
-            className="bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
+            className="bg-page border border-line text-ink px-4 py-3 rounded focus:outline-none focus:border-brand"
           />
           <input
             type="password" name="password" placeholder="Password"
             value={formData.password} onChange={handleChange} required
-            className="bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
+            className="bg-page border border-line text-ink px-4 py-3 rounded focus:outline-none focus:border-brand"
           />
           <input
             type="password" name="confirmPassword" placeholder="Confirm Password"
             value={formData.confirmPassword} onChange={handleChange} required
-            className="bg-black border border-zinc-700 text-white px-4 py-3 rounded focus:outline-none focus:border-yellow-400"
+            className="bg-page border border-line text-ink px-4 py-3 rounded focus:outline-none focus:border-brand"
           />
           <button
             type="submit" disabled={loading}
@@ -85,12 +85,12 @@ export default function Register() {
           </button>
         </form>
 
-        <p className="text-gray-400 text-sm text-center mt-6">
+        <p className="text-muted text-sm text-center mt-6">
           Already have an account?{" "}
-          <Link to="/login" className="text-yellow-400 hover:underline">Login here</Link>
+          <Link to="/login" className="text-brand hover:underline">Login here</Link>
         </p>
-        <p className="text-gray-600 text-xs text-center mt-2">
-          <Link to="/" className="hover:text-yellow-400">Back to Home</Link>
+        <p className="text-subtle text-xs text-center mt-2">
+          <Link to="/" className="hover:text-brand">Back to Home</Link>
         </p>
       </div>
     </div>

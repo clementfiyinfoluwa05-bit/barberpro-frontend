@@ -1,4 +1,5 @@
 import axios from "axios";
+import { readJSON } from "../utils/storage";
 
 // Set VITE_API_URL (e.g. in a .env.local file or in Vercel) to point at another backend.
 const API = axios.create({
@@ -6,9 +7,9 @@ const API = axios.create({
 });
 
 API.interceptors.request.use((req) => {
-  const user = localStorage.getItem("user");
-  if (user) {
-    req.headers.Authorization = `Bearer ${JSON.parse(user).token}`;
+  const user = readJSON("user");
+  if (user?.token) {
+    req.headers.Authorization = `Bearer ${user.token}`;
   }
   return req;
 });

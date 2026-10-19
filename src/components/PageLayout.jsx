@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Preloader from "./Preloader";
+import ThemeToggle from "./ThemeToggle";
 export default function PageLayout() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -15,6 +16,7 @@ export default function PageLayout() {
     <>
       <Preloader visible={loading} />
       <Outlet />
+      <ThemeToggle />
     </>
   );
 }

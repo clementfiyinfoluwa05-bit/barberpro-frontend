@@ -8,10 +8,10 @@ export default function TopNav() {
   const home = !user ? "/login" : user.role === "admin" ? "/admin" : user.role === "barber" ? "/barber/dashboard" : "/dashboard";
 
   return (
-    <nav className="flex justify-between items-center gap-3 px-4 sm:px-6 py-5 border-b border-yellow-400">
-      <Link to="/" className="text-yellow-400 text-sm sm:text-xl font-bold tracking-wider sm:tracking-widest whitespace-nowrap">TECH BARBER QUEEN</Link>
+    <nav className="flex justify-between items-center gap-3 px-4 sm:px-6 py-5 border-b border-brand">
+      <Link to="/" className="text-brand text-sm sm:text-xl font-bold tracking-wider sm:tracking-widest whitespace-nowrap">TECH BARBER QUEEN</Link>
       <div className="flex gap-3 sm:gap-4 items-center text-sm whitespace-nowrap">
-        <Link to="/barbers" className="text-gray-300 hover:text-yellow-400 transition">
+        <Link to="/barbers" className="text-ink-2 hover:text-brand transition">
           <span className="sm:hidden">Barbers</span>
           <span className="hidden sm:inline">Find a Barber</span>
         </Link>
